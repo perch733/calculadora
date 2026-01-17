@@ -1,16 +1,60 @@
+/* 
+  REFACTORIZACIÓN CSS
+  - Uso de variables CSS para facilitar el cambio de tema.
+  - Eliminación de prefijos innecesarios.
+  - Mejoras de rendimiento eliminando el selector universal *.
+*/
+
+:root {
+  /* Definimos los colores del TEMA OSCURO (por defecto) */
+  --bg-calculator: #000000;
+  --text-display: #c3e7f0;
+  
+  --bg-number: #8EFDA6;
+  --text-number: #000000;
+  
+  --bg-operator: #F0DB4F;
+  --text-operator: #aa00a4;
+  
+  --bg-clear: #4C35AA;
+  --text-clear: #ffffff;
+  
+  --bg-equal: #F23B00;
+  --text-equal: #ffffff;
+
+  --bg-toggler: #fff;
+}
+
+/* TEMA CLARO: Sobrescribimos las variables cuando la clase .light-mode está presente */
+.light-mode {
+  --bg-calculator: #ffffff;
+  --text-display: #000000;
+  
+  --bg-number: #85bddc;
+  --text-number: #000000;
+  
+  --bg-operator: #e29edc;
+  --text-operator: #aa00a4;
+  
+  --bg-clear: #ffd5d8;
+  --text-clear: #fc4552;
+  
+  --bg-equal: #49bda2;
+  --text-equal: #000000;
+
+  --bg-toggler: #000;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
   font-family: sans-serif;
-  transition: all 0.8s;
-  -webkit-transition: all 0.8s;
-  -moz-transition: all 0.8s;
-  -ms-transition: all 0.8s;
-  -o-transition: all 0.8s;
+  /* Eliminada la transición global costosa */
 }
 
 body {
   background: linear-gradient(45deg, #c30343, #ffffff);
+  min-height: 100vh; /* Asegura que cubra toda la pantalla */
 }
 
 .container {
@@ -28,11 +72,12 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 30px rgb(187, 130, 130);
-  background-color: #fff;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  
+  /* Usamos la variable para el color de fondo */
+  background-color: var(--bg-calculator);
+  
+  /* Transición suave solo para el color de fondo */
+  transition: background-color 0.5s ease;
 }
 
 .theme-toggler {
@@ -42,26 +87,14 @@ body {
   top: 20px;
   height: 30px;
   width: 30px;
-  background-color: #fff;
   border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-
-}
-
-.active {
-  background-color: #000;
-  transition: all 0.8s;
-  -webkit-transition: all 0.8s;
-  -moz-transition: all 0.8s;
-  -ms-transition: all 0.8s;
-  -o-transition: all 0.8s;
+  
+  /* Variable para el color del botón de tema */
+  background-color: var(--bg-toggler);
+  transition: background-color 0.5s ease;
 }
 
 .display {
-  color: #c3e7f0;
   margin: 0 10px;
   height: 120px;
   width: auto;
@@ -72,12 +105,10 @@ body {
   font-size: 30px;
   margin-bottom: 20px;
   font-weight: 800;
-
-  border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
+  
+  /* Variables */
+  color: var(--text-display);
+  transition: color 0.5s ease;
 }
 
 button {
@@ -85,81 +116,44 @@ button {
   border-radius: 50%;
   font-size: 20px;
   cursor: pointer;
-  transition: all 0.2s;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  
+  /* Transición para efectos hover y cambio de color */
+  transition: transform 0.2s, background-color 0.5s, color 0.5s;
 }
 
-/* maquetación de los botones */
+/* Grid layout para los botones */
 .buttons {
   display: grid;
-  grid-template-columns: 60px 60px 60px 60px;
-  grid-template-rows: 60px 60px 60px 60px 60px;
-  grid-gap: 11px;
-  row-gap: 11px;
-
+  grid-template-columns: repeat(4, 60px); /* Sintaxis más limpia */
+  grid-template-rows: repeat(5, 60px);
+  gap: 11px; /* gap reemplaza a grid-gap y row-gap */
 }
 
 button:hover {
   transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  -moz-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
 }
 
+/* Estilos específicos usando variables */
 .btn-number {
-  background-color: #8EFDA6;
-  color: #000000;
+  background-color: var(--bg-number);
+  color: var(--text-number);
 }
 
 .btn-operator {
-  background-color: #F0DB4F;
-  color: #aa00a4;
+  background-color: var(--bg-operator);
+  color: var(--text-operator);
 }
 
 .clear {
-  background-color: #4C35AA;
-  color: white;
+  background-color: var(--bg-clear);
+  color: var(--text-clear);
 }
 
 .btn-equal {
   border-radius: 30px;
-  background-color: #F23B00;
-  color: #ffffff;
-  grid-column-start: 4;
-  grid-row-start: 4;
-  grid-row-end: 6;
-}
-
-.display__light {
-  color: #000;
-}
-
-.dark {
-  background-color: #000;
-}
-
-.btn-number__light {
-  background-color: #85bddc;
-}
-
-.btn-operator__light {
-  background-color: #e29edc;
-}
-
-.clear__light {
-  background-color: #ffd5d8;
-  color: #fc4552;
-}
-
-.btn-equal__light {
-  background-color: #49bda2;
-  color: #000;
+  grid-column: 4; /* Shorthand */
+  grid-row: 4 / 6; /* Span de filas */
+  
+  background-color: var(--bg-equal);
+  color: var(--text-equal);
 }

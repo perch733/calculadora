@@ -4,52 +4,72 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora</title>
+    <title>Calculadora Refactorizada</title>
+    <!-- Enlazamos la hoja de estilos -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- Contenedor principal para centrar la calculadora -->
     <div class="container">
+      <!-- 
+        Calculadora:
+        El tema oscuro (dark) será el predeterminado.
+        La clase 'calculator' controla el estilo general.
+      -->
       <div class="calculator dark">
-        <div class="theme-toggler ">
-          <!-- <i class="toggler-icon"></i> -->
+        
+        <!-- Botón para cambiar de tema (claro/oscuro) -->
+        <div class="theme-toggler" id="theme-toggler">
+          <!-- Icono visual opcional -->
         </div>
+
+        <!-- Pantalla de la calculadora -->
         <div class="display-screen">
           <div id="display" class="display"></div>
         </div>
-        <div class="buttons">
-          
-              <button class="btn-operator clear" id="clear">C</button>
-              <button class="btn-operator operador" id="/">/</button>
-              <button class="btn-operator operador" id="*">*</button>
-              <button class="btn-operator" id="backspace"><</button>
-           
-              <button class="btn-number" id="7">7</button>
-              <button class="btn-number" id="8">8</button>
-              <button class="btn-number" id="9">9</button>
-              <button class="btn-operator operador" id="-">-</button>
-            
-              <button class="btn-number" id="4">4</button>
-              <button class="btn-number" id="5">5</button>
-              <button class="btn-number" id="6">6</button>
-              <button class="btn-operator operador" id="+">+</button>
-            
-              <button class="btn-number" id="1">1</button>
-              <button class="btn-number" id="2">2</button>
-              <button class="btn-number" id="3">3</button>
-              
 
-                <button class="btn-equal" id="equal">=</button>
-             
+        <!-- 
+          Botones:
+          Usamos 'data-action' para botones de función (limpiar, borrar, igual)
+          y 'data-value' para números y operadores.
+          Esto facilita la lógica en JavaScript (delegación de eventos).
+        -->
+        <div class="buttons">
+          <!-- Fila 1 -->
+          <button class="btn-operator clear" data-action="clear">C</button>
+          <button class="btn-operator operador" data-value="/">/</button>
+          <button class="btn-operator operador" data-value="*">*</button>
+          <button class="btn-operator" data-action="backspace">⌫</button>
+           
+          <!-- Fila 2 -->
+          <button class="btn-number" data-value="7">7</button>
+          <button class="btn-number" data-value="8">8</button>
+          <button class="btn-number" data-value="9">9</button>
+          <button class="btn-operator operador" data-value="-">-</button>
             
-              <button class="btn-operator" id=".">.</button>
-              <button class="btn-number" id="0">0</button>
-              <button class="btn-operator" id="00">00</button>
-            </div>
-          </table>
+          <!-- Fila 3 -->
+          <button class="btn-number" data-value="4">4</button>
+          <button class="btn-number" data-value="5">5</button>
+          <button class="btn-number" data-value="6">6</button>
+          <button class="btn-operator operador" data-value="+">+</button>
+            
+          <!-- Fila 4 -->
+          <button class="btn-number" data-value="1">1</button>
+          <button class="btn-number" data-value="2">2</button>
+          <button class="btn-number" data-value="3">3</button>
+          
+          <!-- Botón Igual (ocupa más espacio visualmente en grid, según CSS original) -->
+          <button class="btn-equal" data-action="calculate">=</button>
+             
+          <!-- Fila 5 -->
+          <button class="btn-operator" data-value=".">.</button>
+          <button class="btn-number" data-value="0">0</button>
+          <button class="btn-operator" data-value="00">00</button>
         </div>
       </div>
     </div>
 
+    <!-- Script principal con la lógica refactorizada -->
     <script src="script.js"></script>
   </body>
 </html>
